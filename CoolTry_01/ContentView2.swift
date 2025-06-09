@@ -8,10 +8,29 @@
 import SwiftUI
 
 struct ContentView2: View {
-    @State var name: String = ""
+    @ObservedObject var appState = AppState.shared
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        Text("You are \(name)")
+        ZStack {
+            Image(.star01)
+                .resizable()
+                .frame(width: 500, height: 990, alignment: .center)
+                .blur(radius: 10)
+            VStack {
+                wordStyle(text: "\(appState.name)")
+                wordStyle(text: "今天~")
+                wordStyle(text: "想做什麼呢？")
+                
+            }
+        }
+    }
+}
+struct wordContent: View {
+    let text: String
+    var body: some View {
+        Text(text)
+            .font(.system(size: 35, weight: .bold, design: .some(.default)))
+            .foregroundStyle(.white)
     }
 }
 

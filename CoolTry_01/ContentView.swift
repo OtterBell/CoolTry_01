@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isBlur: Bool = false
+    @ObservedObject var appState = AppState.shared
     @AppStorage("請輸入你的名字") private var name: String = ""
     @State private var inputName = ""
     @State private var showNext: Bool = false
@@ -17,9 +18,10 @@ struct ContentView: View {
             Image(.star01)
                 .resizable()
                 .frame(width: 500, height: 990, alignment: .center)
-                .blur(radius: isBlur ? 10 : 0)
-                .animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: isBlur)
-                .onAppear{isBlur.toggle()}
+                //.blur(radius: isBlur ? 10 : 0)
+                .blur(radius: 10)
+                //.animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: isBlur)
+                //.onAppear{isBlur.toggle()}
             VStack {
                 wordStyle(text: "你是誰?")
                 TextField("請輸入你的名字", text: $inputName)
@@ -30,7 +32,10 @@ struct ContentView: View {
                 //Text("You are \(name)")
                 if !showNext {
                     Button {
-                        name = inputName
+                        appState.name = inputName
+                        withAnimation {
+                            showNext = true
+                        }
                     } label: {
                         Text("確定")
                             .font(.system(size: 30, weight: .bold, design: .rounded))
