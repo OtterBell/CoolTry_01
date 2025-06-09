@@ -17,9 +17,9 @@ struct ContentView2: View {
                 .frame(width: 500, height: 990, alignment: .center)
                 .blur(radius: 10)
             VStack {
-                wordStyle(text: "\(appState.name)")
-                wordStyle(text: "今天~")
-                wordStyle(text: "想做什麼呢？")
+                wordContent(text: "\(appState.name)")
+                wordContent(text: "今天~")
+                wordContent(text: "想做什麼呢？")
                 
             }
         }

@@ -14,23 +14,24 @@ struct ContentView: View {
     @State private var inputName = ""
     @State private var showNext: Bool = false
     var body: some View {
-        ZStack {
-            Image(.star01)
-                .resizable()
-                .frame(width: 500, height: 990, alignment: .center)
-                //.blur(radius: isBlur ? 10 : 0)
-                .blur(radius: 10)
-                //.animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: isBlur)
-                //.onAppear{isBlur.toggle()}
-            VStack {
-                wordStyle(text: "你是誰?")
-                TextField("請輸入你的名字", text: $inputName)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(height: 150)
-                    .padding(.horizontal,60)
-                
-                //Text("You are \(name)")
-                if !showNext {
+        if showNext {
+            ContentView2()
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+        } else {
+            ZStack {
+                Image(.star01)
+                    .resizable()
+                    .frame(width: 500, height: 990, alignment: .center)
+                    .blur(radius: 10)
+                    //.blur(radius: isBlur ? 10 : 0)
+                    //.animation(.easeInOut(duration: 3).repeatForever(autoreverses: true), value: isBlur)
+                    //.onAppear{isBlur.toggle()}
+                VStack {
+                    wordStyle(text: "你是誰?")
+                    TextField("請輸入你的名字", text: $inputName)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(height: 150)
+                        .padding(.horizontal,60)
                     Button {
                         appState.name = inputName
                         withAnimation {
@@ -44,12 +45,9 @@ struct ContentView: View {
                             .background(.linearGradient(colors:[.blue,.black,.blue], startPoint: .leading, endPoint: .trailing))
                             .clipShape(.rect(cornerRadius: 20))
                     }
-                }else {
-                    ContentView2()
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
+                .padding()
             }
-            .padding()
         }
     }
 }
