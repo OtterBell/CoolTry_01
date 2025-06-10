@@ -30,6 +30,8 @@ struct ContentView: View {
                     wordStyle(text: "你是誰?")
                     TextField("請輸入你的名字", text: $inputName)
                         .textFieldStyle(.roundedBorder)
+                        .font(.title)
+                        
                         .frame(height: 150)
                         .padding(.horizontal,60)
                     Button {
